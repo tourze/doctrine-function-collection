@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
 
 use DoctrineExtensions\Query\Mysql\Minute as MysqlMinute;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\DatetimeFunction\Minute;
 
 /**
  * 测试Minute函数
+ *
+ * @internal
  */
-class MinuteTest extends TestCase
+#[CoversClass(Minute::class)]
+final class MinuteTest extends TestCase
 {
     /**
      * 测试Minute函数返回正确的内部函数

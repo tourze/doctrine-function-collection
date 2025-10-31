@@ -11,7 +11,7 @@ $datetimeFunctions = [
     'Month',
     'Week',
     'WeekDay',
-    'Year'
+    'Year',
 ];
 
 // 字符串函数
@@ -20,7 +20,7 @@ $stringFunctions = [
     'DateDiff',
     'Field',
     'FindInSet',
-    'Rand'
+    'Rand',
 ];
 
 // JSON函数 - 根据命名空间分类
@@ -31,195 +31,188 @@ $jsonFunctions = [
     'JsonArray' => '\Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonArray',
     'JsonExtract' => '\Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonExtract',
     'JsonContains' => '\Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains',
-    'JsonSearch' => '\Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch'
+    'JsonSearch' => '\Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch',
 ];
 
 /**
  * 生成DatetimeFunction测试模板
+ * @param string $functionName
  */
-function generateDatetimeFunctionTest($functionName)
+function generateDatetimeFunctionTest(string $functionName): string
 {
-    $template = <<<PHP
-<?php
+    return <<<PHP
+        <?php
 
-namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
+        namespace Tourze\\DoctrineFunctionCollection\\Tests\\DatetimeFunction;
 
-use Doctrine\ORM\Query\SqlWalker;
-use DoctrineExtensions\Query\Mysql\\{$functionName} as Mysql{$functionName};
-use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
-use Tourze\DoctrineFunctionCollection\DatetimeFunction\\{$functionName};
+        use Symfony\\Bundle\\FrameworkBundle\\Test\\WebTestCase;
+        use Doctrine\\ORM\\Query\\SqlWalker;
+        use DoctrineExtensions\\Query\\Mysql\\{$functionName} as Mysql{$functionName};
+        use PHPUnit\\Framework\\TestCase;
+        use ReflectionMethod;
+        use Tourze\\DoctrineFunctionCollection\\DatetimeFunction\\{$functionName};
 
-/**
- * 测试{$functionName}函数
- */
-class {$functionName}Test extends TestCase
-{
-    /**
-     * 测试{$functionName}函数返回正确的内部函数
-     */
-    public function testGetInner(): void
-    {
-        \${$functionName} = new {$functionName}('{$functionName}');
-        \$inner = \${$functionName}->getInner('{$functionName}');
-        
-        \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
-    }
-    
-    /**
-     * 测试{$functionName}函数能通过getInner方法获取到正确的内部函数
-     */
-    public function testGetInnerReturnsCorrectFunction(): void
-    {
-        \$function = new {$functionName}('{$functionName}');
-        \$inner = \$function->getInner('{$functionName}');
-        
-        \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
-        
-        // 验证实例是新创建的
-        \$inner2 = \$function->getInner('{$functionName}');
-        \$this->assertNotSame(\$inner, \$inner2, '每次调用getInner应该返回新的实例');
-    }
-    
-    /**
-     * 测试函数能否被正确初始化
-     */
-    public function testCanBeInitialized(): void
-    {
-        \${$functionName} = new {$functionName}('{$functionName}');
-        \$this->assertInstanceOf({$functionName}::class, \${$functionName});
-    }
-}
-PHP;
-
-    return $template;
+        /**
+         * 测试{$functionName}函数
+         */
+        class {$functionName}Test extends TestCase
+        {
+            /**
+             * 测试{$functionName}函数返回正确的内部函数
+             */
+            public function testGetInner(): void
+            {
+                \${$functionName} = new {$functionName}('{$functionName}');
+                \$inner = \${$functionName}->getInner('{$functionName}');
+                
+                \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
+            }
+            
+            /**
+             * 测试{$functionName}函数能通过getInner方法获取到正确的内部函数
+             */
+            public function testGetInnerReturnsCorrectFunction(): void
+            {
+                \$function = new {$functionName}('{$functionName}');
+                \$inner = \$function->getInner('{$functionName}');
+                
+                \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
+                
+                // 验证实例是新创建的
+                \$inner2 = \$function->getInner('{$functionName}');
+                \$this->assertNotSame(\$inner, \$inner2, '每次调用getInner应该返回新的实例');
+            }
+            
+            /**
+             * 测试函数能否被正确初始化
+             */
+            public function testCanBeInitialized(): void
+            {
+                \${$functionName} = new {$functionName}('{$functionName}');
+                \$this->assertInstanceOf({$functionName}::class, \${$functionName});
+            }
+        }
+        PHP;
 }
 
 /**
  * 生成StringFunction测试模板
+ * @param string $functionName
  */
-function generateStringFunctionTest($functionName)
+function generateStringFunctionTest(string $functionName): string
 {
-    $template = <<<PHP
-<?php
+    return <<<PHP
+        <?php
 
-namespace Tourze\DoctrineFunctionCollection\Tests\StringFunction;
+        namespace Tourze\\DoctrineFunctionCollection\\Tests\\StringFunction;
 
-use Doctrine\ORM\Query\SqlWalker;
-use DoctrineExtensions\Query\Mysql\\{$functionName} as Mysql{$functionName};
-use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
-use Tourze\DoctrineFunctionCollection\StringFunction\\{$functionName};
+        use Tourze\\DoctrineFunctionCollection\\StringFunction\\{$functionName};
 
-/**
- * 测试{$functionName}函数
- */
-class {$functionName}Test extends TestCase
-{
-    /**
-     * 测试{$functionName}函数返回正确的内部函数
-     */
-    public function testGetInner(): void
-    {
-        \${$functionName} = new {$functionName}('{$functionName}');
-        \$inner = \${$functionName}->getInner('{$functionName}');
-        
-        \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
-    }
-    
-    /**
-     * 测试{$functionName}函数能通过getInner方法获取到正确的内部函数
-     */
-    public function testGetInnerReturnsCorrectFunction(): void
-    {
-        \$function = new {$functionName}('{$functionName}');
-        \$inner = \$function->getInner('{$functionName}');
-        
-        \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
-        
-        // 验证实例是新创建的
-        \$inner2 = \$function->getInner('{$functionName}');
-        \$this->assertNotSame(\$inner, \$inner2, '每次调用getInner应该返回新的实例');
-    }
-    
-    /**
-     * 测试函数能否被正确初始化
-     */
-    public function testCanBeInitialized(): void
-    {
-        \${$functionName} = new {$functionName}('{$functionName}');
-        \$this->assertInstanceOf({$functionName}::class, \${$functionName});
-    }
-}
-PHP;
-
-    return $template;
+        /**
+         * 测试{$functionName}函数
+         */
+        class {$functionName}Test extends TestCase
+        {
+            /**
+             * 测试{$functionName}函数返回正确的内部函数
+             */
+            public function testGetInner(): void
+            {
+                \${$functionName} = new {$functionName}('{$functionName}');
+                \$inner = \${$functionName}->getInner('{$functionName}');
+                
+                \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
+            }
+            
+            /**
+             * 测试{$functionName}函数能通过getInner方法获取到正确的内部函数
+             */
+            public function testGetInnerReturnsCorrectFunction(): void
+            {
+                \$function = new {$functionName}('{$functionName}');
+                \$inner = \$function->getInner('{$functionName}');
+                
+                \$this->assertInstanceOf(Mysql{$functionName}::class, \$inner);
+                
+                // 验证实例是新创建的
+                \$inner2 = \$function->getInner('{$functionName}');
+                \$this->assertNotSame(\$inner, \$inner2, '每次调用getInner应该返回新的实例');
+            }
+            
+            /**
+             * 测试函数能否被正确初始化
+             */
+            public function testCanBeInitialized(): void
+            {
+                \${$functionName} = new {$functionName}('{$functionName}');
+                \$this->assertInstanceOf({$functionName}::class, \${$functionName});
+            }
+        }
+        PHP;
 }
 
 /**
  * 生成JsonFunction测试模板
+ * @param string $functionName
+ * @param string $innerClass
  */
-function generateJsonFunctionTest($functionName, $innerClass)
+function generateJsonFunctionTest(string $functionName, string $innerClass): string
 {
     // 从完整类名中提取简短类名
-    $innerClassName = substr($innerClass, strrpos($innerClass, '\\') + 1);
+    $lastPos = strrpos($innerClass, '\\');
+    $innerClassName = substr($innerClass, false !== $lastPos ? $lastPos + 1 : 0);
     // 提取命名空间
-    $namespacePath = substr($innerClass, 0, strrpos($innerClass, '\\'));
-    
-    $template = <<<PHP
-<?php
+    $namespacePath = false !== $lastPos ? substr($innerClass, 0, $lastPos) : $innerClass;
 
-namespace Tourze\DoctrineFunctionCollection\Tests\JsonFunction;
+    return <<<PHP
+        <?php
 
-use Doctrine\ORM\Query\SqlWalker;
-use {$namespacePath}\\{$innerClassName} as Inner{$functionName};
-use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
-use Tourze\DoctrineFunctionCollection\JsonFunction\\{$functionName};
+        namespace Tourze\\DoctrineFunctionCollection\\Tests\\JsonFunction;
 
-/**
- * 测试{$functionName}函数
- */
-class {$functionName}Test extends TestCase
-{
-    /**
-     * 测试{$functionName}函数返回正确的内部函数
-     */
-    public function testGetInner(): void
-    {
-        \${$functionName} = new {$functionName}('{$functionName}');
-        \$inner = \${$functionName}->getInner('{$functionName}');
-        
-        \$this->assertInstanceOf(Inner{$functionName}::class, \$inner);
-    }
-    
-    /**
-     * 测试{$functionName}函数能通过getInner方法获取到正确的内部函数
-     */
-    public function testGetInnerReturnsCorrectFunction(): void
-    {
-        \$function = new {$functionName}('{$functionName}');
-        \$inner = \$function->getInner('{$functionName}');
-        
-        \$this->assertInstanceOf(Inner{$functionName}::class, \$inner);
-        
-        // 验证实例是新创建的
-        \$inner2 = \$function->getInner('{$functionName}');
-        \$this->assertNotSame(\$inner, \$inner2, '每次调用getInner应该返回新的实例');
-    }
-    
-    /**
-     * 测试函数能否被正确初始化
-     */
-    public function testCanBeInitialized(): void
-    {
-        \${$functionName} = new {$functionName}('{$functionName}');
-        \$this->assertInstanceOf({$functionName}::class, \${$functionName});
-    }
-}
-PHP;
+        use {$namespacePath}\\{$innerClassName} as Inner{$functionName};
+        use Tourze\\DoctrineFunctionCollection\\JsonFunction\\{$functionName};
 
-    return $template;
+        /**
+         * 测试{$functionName}函数
+         */
+        class {$functionName}Test extends TestCase
+        {
+            /**
+             * 测试{$functionName}函数返回正确的内部函数
+             */
+            public function testGetInner(): void
+            {
+                \${$functionName} = new {$functionName}('{$functionName}');
+                \$inner = \${$functionName}->getInner('{$functionName}');
+                
+                \$this->assertInstanceOf(Inner{$functionName}::class, \$inner);
+            }
+            
+            /**
+             * 测试{$functionName}函数能通过getInner方法获取到正确的内部函数
+             */
+            public function testGetInnerReturnsCorrectFunction(): void
+            {
+                \$function = new {$functionName}('{$functionName}');
+                \$inner = \$function->getInner('{$functionName}');
+                
+                \$this->assertInstanceOf(Inner{$functionName}::class, \$inner);
+                
+                // 验证实例是新创建的
+                \$inner2 = \$function->getInner('{$functionName}');
+                \$this->assertNotSame(\$inner, \$inner2, '每次调用getInner应该返回新的实例');
+            }
+            
+            /**
+             * 测试函数能否被正确初始化
+             */
+            public function testCanBeInitialized(): void
+            {
+                \${$functionName} = new {$functionName}('{$functionName}');
+                \$this->assertInstanceOf({$functionName}::class, \${$functionName});
+            }
+        }
+        PHP;
 }
 
 // 生成DatetimeFunction测试

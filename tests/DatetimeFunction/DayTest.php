@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
 
 use DoctrineExtensions\Query\Mysql\Day as MysqlDay;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\DatetimeFunction\Day;
 
 /**
  * 测试Day函数
+ *
+ * @internal
  */
-class DayTest extends TestCase
+#[CoversClass(Day::class)]
+final class DayTest extends TestCase
 {
     /**
      * 测试Day函数返回正确的内部函数

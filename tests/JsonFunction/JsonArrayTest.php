@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\JsonFunction;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonArray as InnerJsonArray;
 use Tourze\DoctrineFunctionCollection\JsonFunction\JsonArray;
 
 /**
  * 测试JsonArray函数
+ *
+ * @internal
  */
-class JsonArrayTest extends TestCase
+#[CoversClass(JsonArray::class)]
+final class JsonArrayTest extends TestCase
 {
     /**
      * 测试JsonArray函数返回正确的内部函数

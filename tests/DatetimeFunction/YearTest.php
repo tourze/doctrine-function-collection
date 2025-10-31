@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
 
 use DoctrineExtensions\Query\Mysql\Year as MysqlYear;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\DatetimeFunction\Year;
 
 /**
  * 测试Year函数
+ *
+ * @internal
  */
-class YearTest extends TestCase
+#[CoversClass(Year::class)]
+final class YearTest extends TestCase
 {
     /**
      * 测试Year函数返回正确的内部函数
@@ -44,5 +50,20 @@ class YearTest extends TestCase
     {
         $Year = new Year('Year');
         $this->assertInstanceOf(Year::class, $Year);
+    }
+
+    /**
+     * 测试parse方法继承自ChainFunction
+     */
+    public function testParseInheritsFromChainFunction(): void
+    {
+        $yearFunction = new Year('YEAR');
+
+        $reflection = new \ReflectionClass($yearFunction);
+        $parseMethod = $reflection->getMethod('parse');
+
+        $this->assertTrue($parseMethod->isPublic());
+        $this->assertEquals('parse', $parseMethod->getName());
+        $this->assertEquals(Year::class, $parseMethod->getDeclaringClass()->getName());
     }
 }

@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\StringFunction;
 
 use DoctrineExtensions\Query\Mysql\Rand as MysqlRand;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\StringFunction\Rand;
 
 /**
  * 测试Rand函数
+ *
+ * @internal
  */
-class RandTest extends TestCase
+#[CoversClass(Rand::class)]
+final class RandTest extends TestCase
 {
     /**
      * 测试Rand函数返回正确的内部函数

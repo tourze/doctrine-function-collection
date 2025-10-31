@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
 
 use DoctrineExtensions\Query\Mysql\Hour as MysqlHour;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\DatetimeFunction\Hour;
 
 /**
  * 测试Hour函数
+ *
+ * @internal
  */
-class HourTest extends TestCase
+#[CoversClass(Hour::class)]
+final class HourTest extends TestCase
 {
     /**
      * 测试Hour函数返回正确的内部函数

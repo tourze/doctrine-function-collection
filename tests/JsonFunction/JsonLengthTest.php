@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\JsonFunction;
 
 use DoctrineExtensions\Query\Mysql\JsonLength as InnerJsonLength;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\JsonFunction\JsonLength;
 
 /**
  * 测试JsonLength函数
+ *
+ * @internal
  */
-class JsonLengthTest extends TestCase
+#[CoversClass(JsonLength::class)]
+final class JsonLengthTest extends TestCase
 {
     /**
      * 测试JsonLength函数返回正确的内部函数

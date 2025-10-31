@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\StringFunction;
 
 use DoctrineExtensions\Query\Mysql\Field as MysqlField;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\StringFunction\Field;
 
 /**
  * 测试Field函数
+ *
+ * @internal
  */
-class FieldTest extends TestCase
+#[CoversClass(Field::class)]
+final class FieldTest extends TestCase
 {
     /**
      * 测试Field函数返回正确的内部函数

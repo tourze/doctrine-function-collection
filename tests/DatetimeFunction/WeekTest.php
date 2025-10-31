@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
 
 use DoctrineExtensions\Query\Mysql\Week as MysqlWeek;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\DatetimeFunction\Week;
 
 /**
  * 测试Week函数
+ *
+ * @internal
  */
-class WeekTest extends TestCase
+#[CoversClass(Week::class)]
+final class WeekTest extends TestCase
 {
     /**
      * 测试Week函数返回正确的内部函数

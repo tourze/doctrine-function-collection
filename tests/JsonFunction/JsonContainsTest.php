@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\JsonFunction;
 
 use DoctrineExtensions\Query\Mysql\JsonContains as InnerJsonContains;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\JsonFunction\JsonContains;
 
 /**
  * 测试JsonContains函数
+ *
+ * @internal
  */
-class JsonContainsTest extends TestCase
+#[CoversClass(JsonContains::class)]
+final class JsonContainsTest extends TestCase
 {
     /**
      * 测试JsonContains函数返回正确的内部函数

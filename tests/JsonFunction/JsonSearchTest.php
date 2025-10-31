@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\JsonFunction;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonSearch as InnerJsonSearch;
 use Tourze\DoctrineFunctionCollection\JsonFunction\JsonSearch;
 
 /**
  * 测试JsonSearch函数
+ *
+ * @internal
  */
-class JsonSearchTest extends TestCase
+#[CoversClass(JsonSearch::class)]
+final class JsonSearchTest extends TestCase
 {
     /**
      * 测试JsonSearch函数返回正确的内部函数

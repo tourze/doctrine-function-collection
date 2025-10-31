@@ -5,13 +5,17 @@ namespace Tourze\DoctrineFunctionCollection\Tests;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\ChainFunction;
 
 /**
  * 测试ChainFunction抽象类
+ *
+ * @internal
  */
-class ChainFunctionTest extends TestCase
+#[CoversClass(ChainFunction::class)]
+final class ChainFunctionTest extends TestCase
 {
     /**
      * 测试ChainFunction的基本功能
@@ -21,7 +25,8 @@ class ChainFunctionTest extends TestCase
         // 创建一个模拟的SqlWalker
         $sqlWalker = $this->getMockBuilder(SqlWalker::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
         // 创建ChainFunction的具体实现
         $chainFunction = new class('test_function') extends ChainFunction {

@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\StringFunction;
 
 use DoctrineExtensions\Query\Mysql\IfElse as MysqlIfElse;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\StringFunction\IfElse;
 
 /**
  * 测试IfElse函数
+ *
+ * @internal
  */
-class IfElseTest extends TestCase
+#[CoversClass(IfElse::class)]
+final class IfElseTest extends TestCase
 {
     /**
      * 测试IfElse函数返回正确的内部函数

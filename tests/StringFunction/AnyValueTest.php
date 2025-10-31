@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\StringFunction;
 
 use DoctrineExtensions\Query\Mysql\AnyValue as MysqlAnyValue;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\StringFunction\AnyValue;
 
 /**
  * 测试AnyValue函数
+ *
+ * @internal
  */
-class AnyValueTest extends TestCase
+#[CoversClass(AnyValue::class)]
+final class AnyValueTest extends TestCase
 {
     /**
      * 测试AnyValue函数返回正确的内部函数

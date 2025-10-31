@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\StringFunction;
 
 use DoctrineExtensions\Query\Mysql\DateDiff as MysqlDateDiff;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\StringFunction\DateDiff;
 
 /**
  * 测试DateDiff函数
+ *
+ * @internal
  */
-class DateDiffTest extends TestCase
+#[CoversClass(DateDiff::class)]
+final class DateDiffTest extends TestCase
 {
     /**
      * 测试DateDiff函数返回正确的内部函数

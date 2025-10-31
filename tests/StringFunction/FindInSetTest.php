@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\StringFunction;
 
 use DoctrineExtensions\Query\Mysql\FindInSet as MysqlFindInSet;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\StringFunction\FindInSet;
 
 /**
  * 测试FindInSet函数
+ *
+ * @internal
  */
-class FindInSetTest extends TestCase
+#[CoversClass(FindInSet::class)]
+final class FindInSetTest extends TestCase
 {
     /**
      * 测试FindInSet函数返回正确的内部函数

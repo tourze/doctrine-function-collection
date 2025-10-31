@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\JsonFunction;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonExtract as InnerJsonExtract;
 use Tourze\DoctrineFunctionCollection\JsonFunction\JsonExtract;
 
 /**
  * 测试JsonExtract函数
+ *
+ * @internal
  */
-class JsonExtractTest extends TestCase
+#[CoversClass(JsonExtract::class)]
+final class JsonExtractTest extends TestCase
 {
     /**
      * 测试JsonExtract函数返回正确的内部函数

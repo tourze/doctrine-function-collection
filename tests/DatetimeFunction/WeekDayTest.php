@@ -1,15 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
 
 use DoctrineExtensions\Query\Mysql\WeekDay as MysqlWeekDay;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\DoctrineFunctionCollection\DatetimeFunction\WeekDay;
 
 /**
  * 测试WeekDay函数
+ *
+ * @internal
  */
-class WeekDayTest extends TestCase
+#[CoversClass(WeekDay::class)]
+final class WeekDayTest extends TestCase
 {
     /**
      * 测试WeekDay函数返回正确的内部函数
