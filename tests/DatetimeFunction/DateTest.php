@@ -6,7 +6,6 @@ namespace Tourze\DoctrineFunctionCollection\Tests\DatetimeFunction;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\Query\SqlWalker;
@@ -89,50 +88,18 @@ final class DateTest extends TestCase
     {
         $dateFunction = new Date('DATE');
 
-        /*
-         * 使用简单的测试类替换Mock以符合PHPStan Level 8规则：
-         * 避免继承复杂的Doctrine类，直接创建具有必要方法的对象
-         * 这样可以避免构造函数参数匹配和父类调用的复杂性
-         */
+        // 使用 PHPUnit Mock 替代匿名类，避免继承复杂的 Doctrine 类
         $sqlitePlatform = new SQLitePlatform();
 
-        // Connection匿名类，继承真正的Connection来满足类型检查
-        // @phpstan-ignore-next-line constructor.missingParentCall,parameter.missing,method.childParameterType
-        $connection = new class($sqlitePlatform) extends Connection {
-            private SQLitePlatform $mockPlatform;
+        // 创建 Connection Mock
+        $connection = $this->createMock(Connection::class);
+        $connection->method('getDatabasePlatform')->willReturn($sqlitePlatform);
 
-            // @phpstan-ignore-next-line constructor.missingParentCall,parameter.missing,method.childParameterType
-            public function __construct(SQLitePlatform $platform)
-            {
-                $this->mockPlatform = $platform;
-                // 不调用父类构造函数，避免复杂的依赖注入
-            }
+        // 创建 SqlWalker Mock
+        $sqlWalker = $this->createMock(SqlWalker::class);
+        $sqlWalker->method('getConnection')->willReturn($connection);
 
-            public function getDatabasePlatform(): AbstractPlatform
-            {
-                return $this->mockPlatform;
-            }
-        };
-
-        // SqlWalker匿名类，继承真正的SqlWalker来满足类型检查
-        // @phpstan-ignore-next-line constructor.missingParentCall,parameter.missing,method.childParameterType
-        $sqlWalker = new class($connection) extends SqlWalker {
-            private Connection $mockConnection;
-
-            // @phpstan-ignore-next-line constructor.missingParentCall,parameter.missing,method.childParameterType
-            public function __construct(Connection $connection)
-            {
-                $this->mockConnection = $connection;
-                // 不调用父类构造函数，避免复杂的依赖注入
-            }
-
-            public function getConnection(): Connection
-            {
-                return $this->mockConnection;
-            }
-        };
-
-        // 先验证我们的测试对象是否正确设置
+        // 验证 Mock 设置正确
         $this->assertInstanceOf(SQLitePlatform::class, $sqlitePlatform);
         $this->assertInstanceOf(SQLitePlatform::class, $connection->getDatabasePlatform());
         $this->assertSame($sqlitePlatform, $connection->getDatabasePlatform());
@@ -147,7 +114,6 @@ final class DateTest extends TestCase
         $determinePlatformMethod->invoke($dateFunction, $sqlWalker);
 
         // Use reflection to check the platformClass was set correctly
-        $reflection = new \ReflectionClass($dateFunction);
         $property = $reflection->getProperty('platformClass');
         $property->setAccessible(true);
 
